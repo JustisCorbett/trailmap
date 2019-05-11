@@ -43,7 +43,7 @@ def mapperfunc():
         print((popup), '\n')
         folium.Marker(
             list(reversed(coordinates)),
-            popup=popup,
+            popup="name",
             tooltip=tooltip,
             icon=folium.Icon(color=custom_color, icon=custom_icon, prefix='fa')
         ).add_to(m)
@@ -53,6 +53,10 @@ def mapperfunc():
 
 def popuper(name):
     """create popup for folium marker from database data"""
+    con = db_connect()
+    db = con.cursor()
+    return name
+
 
 if __name__ == '__main__':
     mapperfunc()

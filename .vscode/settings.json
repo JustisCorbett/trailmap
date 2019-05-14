@@ -2,5 +2,9 @@
     "python.pythonPath": "C:\\Users\\corbett\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe",
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "workbench.colorCustomizations": {
+        "editor.lineHighlightBackground": "#001928",
+        "editorCursor.foreground": "#B7F7FF"
+    }
 }

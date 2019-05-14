@@ -48,12 +48,7 @@ def mapperfunc():
 
 def popuper(name):
     """create popup for folium marker from database data"""
-
-    con = db_connect()
-    db = con.cursor()
-
     
-    )
     return name
 
 

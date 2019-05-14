@@ -1,15 +1,10 @@
 import folium
 import json
-import sqlite3
 import os
 
-DEFAULT_PATH = os.path.join(os.path.dirname(__file__), 'database.sqlite3')
 
 
-def db_connect(db_path=DEFAULT_PATH):
-    """create a default path to connect or create a database"""
-    con = sqlite3.connect(db_path)
-    return con
+
 
 
 def mapperfunc():
@@ -53,8 +48,12 @@ def mapperfunc():
 
 def popuper(name):
     """create popup for folium marker from database data"""
+
     con = db_connect()
     db = con.cursor()
+
+    
+    )
     return name
 
 

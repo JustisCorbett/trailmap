@@ -7,7 +7,7 @@ app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Bigboy1294@localhost/flasktrails'
 #db = SQLAlchemy(app)
 
-#from models import 
+#from models import a
 
 
 @app.route("/")

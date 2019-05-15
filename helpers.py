@@ -1,9 +1,8 @@
 import folium
 import json
 import os
-
-
-
+from app import db
+import models
 
 
 
@@ -11,7 +10,8 @@ def mapperfunc():
     """create a new folium map with geojson markers"""
 
     # load geojson data into a dict
-    with open('trailheadsjson.geojson') as data:
+    file = os.path.join('static', 'trailheadsjson.geojson')
+    with open(file) as data:
         geo = json.load(data)
 
     # create map object
@@ -44,7 +44,8 @@ def mapperfunc():
         ).add_to(m)
 
     # save map
-    m.save("index.html")
+    file_save = os.path.join('static', 'index.html')
+    m.save(file_save)
 
 def popuper(name):
     """create popup for folium marker from database data"""

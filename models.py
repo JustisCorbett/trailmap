@@ -27,9 +27,9 @@ class Trail(db.Model):
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
-        nullable=False)
+                        nullable=False)
     trail_id = db.Column(db.Integer, db.ForeignKey('trail.id'),
-        nullable=False)
+                         nullable=False)
     rate_good = db.Column(db.Integer)
     rate_hard = db.Column(db.Integer)
     post = db.Column(db.Text)

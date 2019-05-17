@@ -1,4 +1,5 @@
 from app import db
+import datetime
 
 
 class User(db.Model):
@@ -10,18 +11,18 @@ class User(db.Model):
     comments = db.relationship('Comment', backref='user', lazy=True)
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return f'User {self.username}, {self.email},'
 
 
 class Trail(db.Model):
     __tablename__ = 'trail'
     id = db.Column(db.Integer, primary_key=True)
-    trailname = db.Column(db.String(120), index=True, unique=True)
+    trailname = db.Column(db.String(120), index=True, unique=True, nullable=False)
     use = db.Column(db.String(20))
     comments = db.relationship('Comment', backref='trail', lazy=True)
 
     def __repr__(self):
-        return '<Trail {}>'.format(self.trailname)
+        return f'Trail {self.trailname}, {self.use},'
 
 
 class Comment(db.Model):
@@ -33,7 +34,7 @@ class Comment(db.Model):
     rate_good = db.Column(db.Integer)
     rate_hard = db.Column(db.Integer)
     post = db.Column(db.Text)
-    time = db.Column(db.DateTime)
+    time = db.Column(db.DateTime, nullabel=False, default=datetime.utcnow)
 
     def __repr__(self):
         return '<Comment {}>'.format(self.post)

@@ -9,6 +9,7 @@ file = os.path.join('static', 'trailheadsjson.geojson')
 with open(file) as data:
     geo = json.load(data)
 
+
 # create objects for insertion into database
 for feature in geo['features']:
     trail = Trail(trailname=feature['properties']['PrimaryName'],

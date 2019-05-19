@@ -1,5 +1,5 @@
 from app import db
-import datetime
+from datetime import datetime
 
 
 class User(db.Model):
@@ -34,7 +34,7 @@ class Comment(db.Model):
     rate_good = db.Column(db.Integer)
     rate_hard = db.Column(db.Integer)
     post = db.Column(db.Text)
-    time = db.Column(db.DateTime, nullabel=False, default=datetime.utcnow)
+    time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     def __repr__(self):
-        return '<Comment {}>'.format(self.post)
+        return f'Comment {self.user_id}, {self.rate_hard}, {self.rate_good}, {self.post}, {self.time}'

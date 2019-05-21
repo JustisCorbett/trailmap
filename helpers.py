@@ -7,10 +7,11 @@ from models import Trail, Comment, User
 from sqlalchemy.orm import joinedload
 from folium.plugins import MarkerCluster
 from sqlalchemy import func
+from urllib.parse import quote_plus
 
 
 
-def mapperfunc():
+def mapmaker():
     """create a new folium map with geojson markers"""
 
     # load geojson data into a dict
@@ -25,9 +26,9 @@ def mapperfunc():
             .join(Comment, Trail.comments)
             .group_by(Trail.trailname)
     )
-    print(query)
+    trails = {}
     for trailname, rate_good, rate_hard in query:
-        print(trailname, round(rate_good), round(rate_hard))
+        trails[trailname] = (round(rate_good), round(rate_hard))
 
     # create map object
     m = folium.Map(
@@ -53,10 +54,10 @@ def mapperfunc():
             custom_color = 'blue'
         name = features['properties']['PrimaryName']
         coordinates = features['geometry']['coordinates']
-        popup = folium.Popup(popuper(name, query))
+        popup = folium.Popup(popuper(name, trails), parse_html=True)
         folium.Marker(
             list(reversed(coordinates)),
-            popup="name",
+            popup=popup,
             tooltip=tooltip,
             icon=folium.Icon(color=custom_color, icon=custom_icon, prefix='fa')
         ).add_to(mc)
@@ -69,24 +70,23 @@ def mapperfunc():
     m.save(file_save)
 
 
-def popuper(name, query):
+def popuper(name, trails):
     """create popup for folium marker from database data"""
-    rating = {
-        1: Markup('<div class="rating"><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><p class ="rate-text">Average User Rating</p></div>')
-        2: Markup('<div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><p class ="rate-text">Average User Rating</p></div>')
-        3: Markup('<div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><span class="fa fa-star-o"></span><p class ="rate-text">Average User Rating</p></div>')
-        4: Markup('<div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star-o"></span><p class ="rate-text">Average User Rating</p></div>')
-        5: markup('<div class="rating"><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><p class ="rate-text">Average User Rating</p></div>')
-    }
-    print(rating[1])
-    for trailname, rate_good, rate_hard in query:
-        if trailname == name:
-            html = "<div>" + trailname + ""
-            return html
-    #trail = query.filter_by(trailname=name).first()
-    #popup = folium.Popup(htlm=True, )
-    return name
+
+    quote = quote_plus(name)
+    if name in trails:
+        html_name = f"<div><h3><a href=\"/trail?name={quote}\">{name}</a></h3></div>"
+        html_rate = f"<div><p>Average User Rating: {trails[name][0]}/5</p></div>"
+        html_diff = f"<div><p>Average User Difficulty: {trails[name][1]}/5</p></div>"
+    else:
+        html_name = f"<div><h3><a href=\"/trail?name={quote}\">{name}</a></h3></div>"
+        html_rate = f"<div><p>Average User Rating: unrated/5</p></div>"
+        html_diff = f"<div><p>Average User Difficulty: unrated/5</p></div>"
+
+    popup = f"<html>{html_name}{html_rate}{html_diff}</html>"
+    print(popup)
+    return popup
 
 
 if __name__ == '__main__':
-    MapConstuctor()
+    mapmaker()

@@ -54,7 +54,7 @@ def mapmaker():
             custom_color = 'blue'
         name = features['properties']['PrimaryName']
         coordinates = features['geometry']['coordinates']
-        popup = folium.Popup(popuper(name, trails), parse_html=True)
+        popup = popuper(name, trails)
         folium.Marker(
             list(reversed(coordinates)),
             popup=popup,
@@ -74,17 +74,18 @@ def popuper(name, trails):
     """create popup for folium marker from database data"""
 
     quote = quote_plus(name)
+    safe_name = name.replace("`", "")
+    print(safe_name)
     if name in trails:
-        html_name = f"<div><h3><a href=\"/trail?name={quote}\">{name}</a></h3></div>"
-        html_rate = f"<div><p>Average User Rating: {trails[name][0]}/5</p></div>"
-        html_diff = f"<div><p>Average User Difficulty: {trails[name][1]}/5</p></div>"
+        html_name = f"<div><h3><a href=\"/trail?name={quote}\">{safe_name}</a></h3></div>"
+        html_rate = f"<div><p style=\"white-space: nowrap\">Average User Rating: {trails[name][0]}/5</p></div>"
+        html_diff = f"<div><p style=\"white-space: nowrap\">Average User Difficulty: {trails[name][1]}/5</p></div>"
     else:
-        html_name = f"<div><h3><a href=\"/trail?name={quote}\">{name}</a></h3></div>"
-        html_rate = f"<div><p>Average User Rating: unrated/5</p></div>"
-        html_diff = f"<div><p>Average User Difficulty: unrated/5</p></div>"
+        html_name = f"<div><h3><a href=\"/trail?name={quote}\">{safe_name}</a></h3></div>"
+        html_rate = f"<div><p style=\"white-space: nowrap\">Average User Rating: unrated/5</p></div>"
+        html_diff = f"<div><p style=\"white-space: nowrap\">Average User Difficulty: unrated/5</p></div>"
 
     popup = f"<html>{html_name}{html_rate}{html_diff}</html>"
-    print(popup)
     return popup
 
 

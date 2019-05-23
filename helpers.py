@@ -1,14 +1,11 @@
 import folium
 import json
 import os
-from flask import Markup
 from app import db
-from models import Trail, Comment, User
-from sqlalchemy.orm import joinedload
+from models import Trail, Comment
 from folium.plugins import MarkerCluster
 from sqlalchemy import func
 from urllib.parse import quote_plus
-
 
 
 def mapmaker():
@@ -75,7 +72,6 @@ def popuper(name, trails):
 
     quote = quote_plus(name)
     safe_name = name.replace("`", "")
-    print(safe_name)
     if name in trails:
         html_name = f"<div><h3><a href=\"/trail?name={quote}\">{safe_name}</a></h3></div>"
         html_rate = f"<div><p style=\"white-space: nowrap\">Average User Rating: {trails[name][0]}/5</p></div>"

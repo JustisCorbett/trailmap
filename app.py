@@ -1,7 +1,8 @@
-from flask import Flask
+from flask import Flask, redirect, render_template, session, request
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
+from werkzeug.security import check_password_hash, generate_password_hash
 
-#from helpers import mapperfunc
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/flasktrails'
@@ -9,9 +10,43 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhos
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-
-
+from helpers import mapmaker
 
 @app.route("/")
 def index():
-    return 'index.html'
+    """Create and render map"""
+
+    mapmaker()
+
+    return render_template("map.html")
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    """Register user"""
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """Log user in"""
+
+
+@app.route("/logout")
+def logout():
+    """Log user out"""
+
+
+@app.route("/changepw", methods=["GET", "POST"])
+@login_required
+def changepw():
+    """Change user's password"""
+
+
+@app.route("/trail", methods=["GET"])
+def trailposts():
+    """Show posts for specified trail"""
+
+
+@app.route("/comment", methods=["GET", "POST"])
+def comment():
+    """Let user comment and rate a trail"""

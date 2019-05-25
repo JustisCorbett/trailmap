@@ -16,7 +16,8 @@ from helpers import mapmaker
 def index():
     """Create and render map"""
 
-    return render_template("index.html")
+    mapmaker()
+    return render_template("map.html")
 
 
 @app.route("/map.html")

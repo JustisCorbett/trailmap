@@ -43,7 +43,7 @@ def logout():
 
 
 @app.route("/changepw", methods=["GET", "POST"])
-@login_required
+#@login_required
 def changepw():
     """Change user's password"""
 

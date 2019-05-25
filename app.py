@@ -1,12 +1,12 @@
-from flask import Flask, redirect, render_template, session, request
+from flask import Flask, redirect, render_template, session, request, url_for, send_file
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/flasktrails'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://jqewotptknoxrj:54ea7f064f3ea562961843cf894e446774889fece265324e8b4e6ab7e3278ab6@ec2-54-163-226-238.compute-1.amazonaws.com:5432/d3jtih4nl7s405'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/flasktrails'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://jqewotptknoxrj:54ea7f064f3ea562961843cf894e446774889fece265324e8b4e6ab7e3278ab6@ec2-54-163-226-238.compute-1.amazonaws.com:5432/d3jtih4nl7s405'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -16,9 +16,15 @@ from helpers import mapmaker
 def index():
     """Create and render map"""
 
-    mapmaker()
+    return render_template("index.html")
 
-    return render_template("map.html")
+
+@app.route("/map.html")
+def showmap():
+    """return map file for use in iFrame"""
+
+    mapmaker()
+    return send_file('/templates/map.html')
 
 
 @app.route("/register", methods=["GET", "POST"])

@@ -33,7 +33,7 @@ def mapmaker():
         zoom_start=7,
         attr='© <a href="www.openstreetmap.org">OpenStreetMap contributors<a> <a href="https://gis.utah.gov/">Utah AGRC</a>',
         width='100%',
-        height='90%'
+        height='100%'
     )
     tooltip = 'Click for More Info'
     mc = MarkerCluster()

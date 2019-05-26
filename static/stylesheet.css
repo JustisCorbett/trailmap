@@ -1,0 +1,12 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+nav.navbar>ul>li>a {
+    padding-top: 25px;
+    padding-bottom: 25px;
+   }
+
+.logo-text{
+    font-family: 'Satisfy', cursive;
+    font-size: 1.5em;
+}

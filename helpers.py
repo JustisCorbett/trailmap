@@ -31,7 +31,7 @@ def mapmaker():
     m = folium.Map(
         location=[39.804298, -111.415337],
         zoom_start=7,
-        attr='© <a href="www.openstreetmap.org">OpenStreetMap contributors<a> <a href="https://gis.utah.gov/">Utah AGRC</a>',
+        attr='© <a href="www.openstreetmap.org">OpenStreetMap contributors<a>, <a href="https://gis.utah.gov/">Utah AGRC</a>',
         width='100%',
         height='100%'
     )

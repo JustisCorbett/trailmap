@@ -1,12 +1,30 @@
 body{
     font-family: 'Roboto', sans-serif;
 }
-nav.navbar>ul>li>a {
-    padding-top: 25px;
-    padding-bottom: 25px;
+
+nav.navbar {
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+    background-color: #476782;
    }
+
+nav.navbar>div>ul{
+    font-size: 1.25em;
+    padding-bottom: 5px;
+    padding-top: 0px;
+}
 
 .logo-text{
     font-family: 'Satisfy', cursive;
     font-size: 1.5em;
+}
+
+.spinner{
+    font-size: 7em;
+    color: #6A80A3;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }

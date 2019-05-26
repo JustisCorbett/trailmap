@@ -5,5 +5,12 @@
 {% endblock %}
 
 {% block main %}
-    <iframe frameborder='0' noresize='noresize' style='position: absolute; background: transparent; width: 100%; height:90%; padding: 0%' src="/map" frameborder="0"></iframe>
+    <div class="container-fluid p-0">
+        <div class="spinner">
+            <div>
+                <i class="fas fa-spinner fa-pulse"></i>
+            </div>
+        </div>
+        <iframe frameborder='0' name=iframe noresize='noresize' style='position: absolute; background: transparent; width: 100%; height:90%; padding: 0%' src="/map" frameborder="0" onload="document.getElementById('spinner').style.display='none';"></iframe>
+    </div>
 {% endblock %}

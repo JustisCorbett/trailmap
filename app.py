@@ -52,7 +52,7 @@ def changepw():
     """Change user's password"""
 
 
-@app.route("/trail", methods=["GET"])
+@app.route("/trail", methods=["GET", "POST"])
 def trailposts():
     """Show posts for specified trail"""
 
@@ -62,6 +62,6 @@ def comment():
     """Let user comment and rate a trail"""
 
 
-@app.route("/user", methods=["GET"])
+@app.route("/user", methods=["GET", "POST"])
 def user():
     """Show specified user's history of posts"""

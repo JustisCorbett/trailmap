@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, session, request, url_for, send_file
+from flask import Flask, redirect, render_template, session, request, url_for, send_file, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -35,11 +35,27 @@ def showmap():
 def register():
     """Register user"""
 
+    if request.method == "POST":
+        return "TODO"
+    else:
+        return render_template("register.html")
+
+
+@app.route("/check", methods=["GET"])
+def check():
+    """Check if user is registerable"""
+
+    return jsonify(False)
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
 
+    if request.method == "POST":
+        return "TODO"
+    else:
+        return render_template("login.html")
 
 @app.route("/logout")
 def logout():
@@ -52,7 +68,27 @@ def changepw():
     """Change user's password"""
 
 
-@app.route("/trail", methods=["GET", "POST"])
+@app.route("/trailsearch", methods=["GET"])
+def trailsearch():
+    """Let user search all trails"""
+
+    if "trailsearch" in request.args:
+        return 1
+    else:
+        return render_template("trailsearch.html")
+
+
+@app.route("/usersearch", methods=["GET"])
+def usersearch():
+    """Let user search all users"""
+
+    if "usersearch" in request.args:
+        return 1
+    else:
+        return render_template("usersearch.html")
+
+
+@app.route("/trail", methods=["GET"])
 def trailposts():
     """Show posts for specified trail"""
 
@@ -62,6 +98,6 @@ def comment():
     """Let user comment and rate a trail"""
 
 
-@app.route("/user", methods=["GET", "POST"])
+@app.route("/user", methods=["GET"])
 def user():
     """Show specified user's history of posts"""

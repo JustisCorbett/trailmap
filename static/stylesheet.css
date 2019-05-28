@@ -19,6 +19,11 @@ nav.navbar>div>ul{
     font-size: 1.5em;
 }
 
+.page-title{
+    font-size: 2em;
+    font-weight: 400;
+}
+
 .spinner{
     font-size: 7em;
     color: #6A80A3;
@@ -27,4 +32,8 @@ nav.navbar>div>ul{
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
+}
+
+.fa-search{
+    font-size: 1.5em;
 }

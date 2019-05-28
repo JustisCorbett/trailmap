@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search Users
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid">
+    <div class="mx-auto col-lg-6 col-sm-10 p-3 text-center">
+        <p class="page-title">Search Users</p>
+    </div>
+    <div class="mx-auto col-lg-3 col-sm-8">
+        <form class="form-inline" action="/usersearch" method="get">
+            <div class="form-group mx-auto">
+                <input autocomplete="off" autofocus class="form-control" name="usersearch" placeholder="Search Users" type="text" id="usersearch">
+                <button type="submit" class="btn btn-secondary ml-1"><i class="fas fa-search"></i></button>
+            </div>
+            
+        </form>
+    </div>
+</div>
+{% endblock %}

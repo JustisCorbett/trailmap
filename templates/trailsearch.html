@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search Trails
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid">
+    <div class="mx-auto col-lg-6 col-sm-10 p-3 text-center">
+        <p class="page-title">Search Trails</p>
+    </div>
+    <div class="mx-auto col-lg-3 col-sm-8">
+        <form class="form-inline" action="/trailsearch" method="get">
+            <div class="form-group mx-auto">
+                <input autocomplete="off" autofocus class="form-control" name="trailsearch" placeholder="Search Trails" type="text" id="trailsearch">
+                <button type="submit" class="btn btn-secondary ml-1"><i class="fas fa-search"></i></button>
+            </div>
+            
+        </form>
+    </div>
+</div>
+{% endblock %}

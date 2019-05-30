@@ -1,5 +1,7 @@
 body{
     font-family: 'Roboto', sans-serif;
+    background-color: #FAFBFB;
+    color: #111111
 }
 
 nav.navbar {
@@ -37,3 +39,39 @@ nav.navbar>div>ul{
 .fa-search{
     font-size: 1.5em;
 }
+
+.result-content{
+    background-color: #DDE3E8;
+    border-radius: 0px 0px 10px 10px;
+    width: 100%;
+    margin-top: 0px;
+}
+
+.result-head{
+    background-color: #6A80A3;
+    border-radius: 10px 10px 0px 0px;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.result-header-text{
+    font-size: 1.5em;
+    color: #FAFBFB;
+    
+}
+
+.btn-search{
+    background-color: #B5BABE;
+}
+
+.fixed_header tbody{
+    display:block;
+    overflow:auto;
+    height:200px;
+    width:100%;
+  }
+  .fixed_header thead tr{
+    display:block;
+  }

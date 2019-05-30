@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, session, request, url_for, send_file, jsonify
+from flask import Flask, redirect, render_template, session, request, send_file, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -68,24 +68,14 @@ def changepw():
     """Change user's password"""
 
 
-@app.route("/trailsearch", methods=["GET"])
+@app.route("/search", methods=["GET"])
 def trailsearch():
     """Let user search all trails"""
 
-    if "trailsearch" in request.args:
-        return 1
+    if "search" in request.args:
+        return render_template("search.html")
     else:
-        return render_template("trailsearch.html")
-
-
-@app.route("/usersearch", methods=["GET"])
-def usersearch():
-    """Let user search all users"""
-
-    if "usersearch" in request.args:
-        return 1
-    else:
-        return render_template("usersearch.html")
+        return render_template("search.html")
 
 
 @app.route("/trail", methods=["GET"])

@@ -33,23 +33,33 @@
                 {% if session.user_id %}
                     <ul class="navbar-nav mr-auto mt-2">
                         <li class="nav-item"><a class="nav-link" href="/">Map</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/usersearch">Users</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/trailsearch">Trails</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto mt-2">
                         <li class="nav-itam"><a class="nav-link" href="/changepw">Change Password</a></li>
                         <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
                     </ul>
+                    <form class="form-inline my-2 my-lg-0" action="/search" method="get">
+                        <div class="form-group mx-auto">
+                            <input autocomplete="off" autofocus class="form-control" name="search" placeholder="Search Trails and Users" type="text" id="search">
+                            <button type="submit" class="btn btn-search ml-1"><i class="fas fa-search"></i></button>
+                        </div>
+                        
+                    </form>
                 {% else %}
                     <ul class="navbar-nav mr-auto mt-2">
                         <li class="nav-item"><a class="nav-link" href="/">Map</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/usersearch">Users</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/trailsearch">Trails</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto mt-2">
                         <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
                         <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
                     </ul>
+                    <form class="form-inline my-2 my-lg-0" action="/search" method="get">
+                        <div class="form-group mx-auto">
+                            <input autocomplete="off" autofocus class="form-control" name="search" placeholder="Search Trails and Users" type="text" id="search">
+                            <button type="submit" class="btn btn-search ml-1"><i class="fas fa-search"></i></button>
+                        </div>
+                        
+                    </form>
                 {% endif %}
             </div>
         </nav>

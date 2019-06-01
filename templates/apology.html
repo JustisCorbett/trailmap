@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Lost
+{% endblock %}
+
+{% block main %}
+    <div class="container pt-5 ">
+        <div class="row justify-content-center mr-5">
+            <span class="fa-stack fa-2x">
+                <i class="fas fa-comment fa-flip-horizontal fa-stack-2x"></i>
+                <i class="fas fa-question fa-stack-1x fa-inverse"></i>
+            </span>
+        </div>
+        <div class="row col justify-content-center">
+            <i class="fas fa-hiking"></i>
+        </div>
+        
+        <div>
+            <p class="page-title row justify-content-center">
+                Error: {{top}}
+            </p>
+            <p class="page-title row justify-content-center">
+                {{bottom}}
+            </p>
+        </div>
+    </div>
+{% endblock %}

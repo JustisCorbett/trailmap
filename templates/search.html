@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Log In
+    Search
 {% endblock %}
 
 {% block main %}
@@ -18,26 +18,46 @@
                 <table class="table table-sm">
                     <thead>
                         <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Rating</th>
+                            <th scope="col">Posts</th>
                         </tr>
                     </thead>
                     <tbody>
-
+                        {% for trail in trails%}
+                            <tr>
+                                <td>{{ trail["name"] }}</td>
+                                <td>{{ trail["rating"] }}</td>
+                                <td>{{ trail["posts"] }}</td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
         <div class="col px-md-5 ">
-                <div class="result-head">
-                    <span class="result-header-text">Users</span>
-                </div>
-                <div class="result-content px-2">
-                    <span>sdf</span>
-                </div>
+            <div class="result-head">
+                <span class="result-header-text">Users</span>
             </div>
+            <div class="result-content px-2">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Posts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users%}
+                            <tr>
+                                <td>{{ user["name"] }}</td>
+                                <td>{{ user["posts"] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

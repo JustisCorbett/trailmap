@@ -20,12 +20,12 @@
             <div class="form-group">
                 <input class="form-control" name="confirmation" placeholder="Confirm Password" type="password">
             </div>
-            <button class="btn btn-primary" type="submit">Register</button>
+            <button class="btn btn-primary reg" type="submit">Register</button>
         </form>
     </div>
 </div>
 <script>
-    $("button").on("click", function(event)
+    $("button.reg").on("click", function(event)
     {
         event.preventDefault();
         if ($('#username').val() == false)

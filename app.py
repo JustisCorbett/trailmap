@@ -11,14 +11,14 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhos
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-from helpers import mapmaker
+from helpers import mapmaker, login_required, apology
+from models import User, Trail, Comment
 
 
 @app.route("/")
 def index():
     """Create and render map"""
 
-    
     return render_template("index.html")
 
 
@@ -82,8 +82,15 @@ def trailsearch():
 def trailposts():
     """Show posts for specified trail"""
 
+    #name = request.args.get["name"]
+    #trail = Trail.query.filter_by(trailname=name).first()
+    #if not trail:
+    return apology('message', 400)
+    #else:
+        #return render_template("trail.html")
 
 @app.route("/comment", methods=["GET", "POST"])
+@login_required
 def comment():
     """Let user comment and rate a trail"""
 

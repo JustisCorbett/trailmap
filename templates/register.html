@@ -15,6 +15,9 @@
                 <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" id="username">
             </div>
             <div class="form-group">
+                <input class="form-control" name="email" placeholder="Email" type="text" id="email">
+            </div>
+            <div class="form-group">
                 <input class="form-control" name="password" placeholder="Password" type="password">
             </div>
             <div class="form-group">
@@ -33,9 +36,19 @@
             alert('You must provide your name!');
             return false;
         }
-
-        let username = $("#username").serialize();
-        $.get("/check", username, function(data)
+        if ($('#email').val() == false)
+        {
+            alert('You must provide your email!');
+            return false;
+        }
+        if ($('#password').val() !== $('#confirmation').val())
+        {
+            alert('Your passwords must match!');
+            return false;
+        }
+        //let username = $("#username").serialize();
+        //let email = $('#email').serialize();
+        $.get("/check", {username : $('#username').val(), email : $('#email').val()}, function(data)
         {
             if (data == true)
             {
@@ -44,7 +57,7 @@
             }
             else if (data == false)
             {
-                alert("Username exists. Try another one.");
+                alert("Username and/or Email exists. Try another one.");
                 return false;
             }
         });

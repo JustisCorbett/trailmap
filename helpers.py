@@ -100,7 +100,7 @@ def login_required(f):
 
 def apology(message, code=400):
     """Render message as an apology to user."""
-    
+
     return render_template("apology.html", top=code, bottom=message)
 
 

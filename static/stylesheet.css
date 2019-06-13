@@ -36,8 +36,12 @@ nav.navbar>div>ul{
     transform: translate(-50%, -50%);
 }
 
-.fa-hiking{
+.hiker{
     font-size: 7em;
+}
+
+.use-icon{
+    font-size: 1.5em;
 }
 .fa-comment{
     font-size: 3em;

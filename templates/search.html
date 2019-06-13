@@ -14,23 +14,33 @@
             <div class="result-head">
                 <span class="result-header-text">Trails</span>
             </div>
-            <div class="result-content px-2">
+            <div class="result-content px-2 fixed-header">
                 <table class="table table-sm">
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
-                            <th scope="col">Rating</th>
-                            <th scope="col">Posts</th>
+                            <th scope="col">Primary Use</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for trail in trails%}
+                        {% if trail %}
+                            {% for trail in trails%}
+                                <tr>
+                                    <td><a href="/trail?name={{ trail.link }}">{{ trail.trailname }}</a></td>
+                                    {% if trail.use == "OVPrimaryUseHIKE" %}
+                                        <td class="use-icon"><i class="fas fa-hiking"></i></td>
+                                    {% elif trail.use == "OVPrimaryUseMTB" %}
+                                        <td class="use-icon"><i class="fas fa-bicycle"></i></td>
+                                    {% else %}
+                                        <td class="use-icon"><i class="fas fa-arrows-alt"></i></td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        {% else %}
                             <tr>
-                                <td>{{ trail["name"] }}</td>
-                                <td>{{ trail["rating"] }}</td>
-                                <td>{{ trail["posts"] }}</td>
+                                <td><h4>Sorry! No Trails Found</h4></td>
                             </tr>
-                        {% endfor %}
+                        {% endif %}
                     </tbody>
                 </table>
             </div>
@@ -39,21 +49,25 @@
             <div class="result-head">
                 <span class="result-header-text">Users</span>
             </div>
-            <div class="result-content px-2">
+            <div class="result-content px-2 fixed-header">
                 <table class="table table-sm">
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
-                            <th scope="col">Posts</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for user in users%}
+                        {% if users %}
+                            {% for user in users%}
+                                <tr>
+                                    <td><a href="/trail?name={{ user.link }}">{{ user.username }}</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
                             <tr>
-                                <td>{{ user["name"] }}</td>
-                                <td>{{ user["posts"] }}</td>
+                                <td><h4>Sorry! No Users Found</h4></td>
                             </tr>
-                        {% endfor %}
+                        {% endif %}
                     </tbody>
                 </table>
             </div>

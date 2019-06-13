@@ -1,7 +1,9 @@
 from flask import Flask, redirect, render_template, session, request, send_file, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
+from urllib.parse import quote_plus
 import os
 
 
@@ -64,8 +66,8 @@ def register():
         # if username or email is already in db return apology, else insert into db
         if not result_name or not result_email:
             user = User(username=request.form.get("username"),
-                    email=request.form.get("email"),
-                    pw_hash=pw_hash)
+                        email=request.form.get("email"),
+                        pw_hash=pw_hash)
             db.session.add(user)
             db.session.commit()
         else:
@@ -157,24 +159,34 @@ def changepw():
 
 @app.route("/search", methods=["GET"])
 def trailsearch():
-    """Let user search all trails"""
+    """Let user search for users and trails"""
 
-    if "search" in request.args:
-        return render_template("search.html")
-    else:
-        return render_template("search.html")
+    # get query string from args, add wildcards
+    query = request.args.get("search")
+    looking_for = f"%{query}%"
+
+    result_trails = Trail.query.filter(Trail.trailname.ilike(looking_for)).all()
+    result_users = User.query.filter(User.username.ilike(looking_for)).all()
+
+    for trail in result_trails:
+        trail.link = quote_plus(trail.trailname)
+    for user in result_users:
+        user.link = quote_plus(user.username)
+
+    return render_template("search.html", trails=result_trails, users=result_users)
 
 
 @app.route("/trail", methods=["GET"])
 def trailposts():
     """Show posts for specified trail"""
 
-    #name = request.args.get["name"]
-    #trail = Trail.query.filter_by(trailname=name).first()
-    #if not trail:
-    #return apology('message', 400)
-    #else:
-    return render_template("trail.html")
+    name = request.args.get["name"]
+    result_trail = Trail.query.filter_by(trailname=name).first()
+    if not result_trail:
+        return apology('message', 400)
+    else:
+        return render_template("trail.html", trail=result_trail)
+
 
 @app.route("/comment", methods=["GET", "POST"])
 @login_required

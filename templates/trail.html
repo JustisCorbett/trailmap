@@ -5,14 +5,22 @@
 {% endblock %}
 
 {% block main %}
-<div class="container-fluid">
+<div class="container-fluid h-100">
     <div class="mx-auto col-lg-6 col-sm-10 p-3 text-center">
         <p class="page-title">{{ trail["name"] }}</p>
     </div>
-    <div class="row mx-md-n5">
+    <div class="row mx-md-n5 h-100">
         <div class="col px-md-5 ">
             <div class="result-head">
-                <span class="result-header-text">Trail</span>
+                <span class="result-header-text">trail.trailname</span>
+            </div>
+            <div class="container-fluid p-0 h-30 mx-auto">
+                <div class="spinner">
+                    <div>
+                        <i class="fas fa-spinner fa-pulse"></i>
+                    </div>
+                </div>
+                <iframe frameborder='0' name=iframe noresize='noresize' style='position: absolute; background: transparent; width: 92.5%; height:60%; padding: 0%' src="/map" frameborder="0" onload="document.getElementById('spinner').style.display='none';"></iframe>
             </div>
             <div class="result-content px-2">
                 <table class="table table-sm">

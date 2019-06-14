@@ -10,8 +10,9 @@ from flask import redirect, render_template, request, session
 from functools import wraps
 
 
-def mapmaker():
-    """create a new folium map with geojson markers"""
+def mapmaker(trailParam):
+    """Create a new folium map with geojson markers.
+       If called with a trailParam, center map to trail and auto open popup"""
 
     # load geojson data into a dict
     file = os.path.join('static', 'trailheadsjson.geojson')
@@ -21,7 +22,7 @@ def mapmaker():
     # load trails and comment ratings from database if the trail has ratings
     query = (
             db.session.query(Trail.trailname, func.avg(Comment.rate_good),
-                             func.avg(Comment.rate_hard))
+                            func.avg(Comment.rate_hard))
             .join(Comment, Trail.comments)
             .group_by(Trail.trailname)
     )
@@ -29,16 +30,34 @@ def mapmaker():
     for trailname, rate_good, rate_hard in query:
         trails[trailname] = (round(rate_good), round(rate_hard))
 
+    # if there is a trail parameter, save coords
+    if trailParam:
+        for features in geo['features']:
+            if features['properties']['PrimaryName'] == trailParam:
+                trailParamCoords = features['geometry']["coordinates"]
+    
     # create map object
-    m = folium.Map(
-        location=[39.804298, -111.415337],
-        zoom_start=7,
-        attr='© <a href="www.openstreetmap.org">OpenStreetMap contributors<a>, <a href="https://gis.utah.gov/">Utah AGRC</a>',
-        width='100%',
-        height='100%'
-    )
-    tooltip = 'Click for More Info'
-    mc = MarkerCluster()
+    if not trailParam:
+        m = folium.Map(
+            location=[39.804298, -111.415337],
+            zoom_start=7,
+            attr='© <a href="www.openstreetmap.org">OpenStreetMap contributors<a>, <a href="https://gis.utah.gov/">Utah AGRC</a>',
+            width='100%',
+            height='100%'
+        )
+        tooltip = 'Click for More Info'
+        mc = MarkerCluster()
+    else:
+        print(trailParamCoords)
+        m = folium.Map(
+            location=list(reversed(trailParamCoords)),
+            zoom_start=14,
+            attr='© <a href="www.openstreetmap.org">OpenStreetMap contributors<a>, <a href="https://gis.utah.gov/">Utah AGRC</a>',
+            width='100%',
+            height='100%'
+        )
+        tooltip = 'Click for More Info'
+        mc = MarkerCluster()
 
     # create markers from geojson dict, add to marker cluster
     for features in geo['features']:

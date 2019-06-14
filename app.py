@@ -20,8 +20,10 @@ from models import User, Trail, Comment
 
 @app.route("/")
 def index():
-    """Create and render map"""
+    """render the default map"""
 
+    # remove trail in session to make default map
+    session.pop("trail", None)
     return render_template("index.html")
 
 
@@ -29,7 +31,12 @@ def index():
 def showmap():
     """return map file for use in iFrame"""
 
-    mapmaker()
+    # if there is a trail variable pass it to mapmaker
+    if session["trail"] is not None:
+        trailParam = session["trail"]
+    else:
+        trailParam = ""
+    mapmaker(trailParam)
     map_path = os.path.join('templates', 'map.html')
     return send_file(map_path)
 
@@ -39,7 +46,7 @@ def register():
     """Register user"""
 
      # Forget any user_id
-    session.clear()
+    session.pop("user_id", None)
 
     # Ensure user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
@@ -111,7 +118,7 @@ def login():
     """Log user in"""
 
     # Forget any user_id
-    session.clear()
+    session.pop("user_id", None)
 
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
@@ -161,7 +168,7 @@ def changepw():
 def trailsearch():
     """Let user search for users and trails"""
 
-    # get query string from args, add wildcards
+    # get query string from args, search db and pass query objects to template
     query = request.args.get("search")
     looking_for = f"%{query}%"
 
@@ -180,8 +187,27 @@ def trailsearch():
 def trailposts():
     """Show posts for specified trail"""
 
-    name = request.args.get["name"]
-    result_trail = Trail.query.filter_by(trailname=name).first()
+    # save trail in session for use in map generation
+    name = request.args.get("name")
+    session["trail"] = name
+
+    result_trail = (
+            db.session.query(Trail)
+            .join(Comment, Trail.comments)
+            .filter(Trail.trailname == name)
+            .first()
+    )
+    result_ratings = (
+            db.session.query(Trail.trailname, func.avg(Comment.rate_good),
+                             func.avg(Comment.rate_hard))
+            .join(Comment, Trail.comments)
+            .group_by(Trail.trailname)
+            .filter(Trail.trailname == name)
+            .first()
+    )
+
+    print(result_trail)
+    print(result_trail.comments)
     if not result_trail:
         return apology('message', 400)
     else:

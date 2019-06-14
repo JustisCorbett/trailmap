@@ -23,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% if trail %}
+                        {% if trails %}
                             {% for trail in trails%}
                                 <tr>
                                     <td><a href="/trail?name={{ trail.link }}">{{ trail.trailname }}</a></td>
@@ -60,7 +60,7 @@
                         {% if users %}
                             {% for user in users%}
                                 <tr>
-                                    <td><a href="/trail?name={{ user.link }}">{{ user.username }}</a></td>
+                                    <td><a href="/user?name={{ user.link }}">{{ user.username }}</a></td>
                                 </tr>
                             {% endfor %}
                         {% else %}

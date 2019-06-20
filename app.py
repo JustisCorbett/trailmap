@@ -192,26 +192,33 @@ def trailposts():
     session["trail"] = name
 
     result_trail = (
-            db.session.query(Trail)
-            .join(Comment, Trail.comments)
-            .filter(Trail.trailname == name)
-            .first()
+        db.session.query(Trail)
+        .filter(Trail.trailname == name)
+        .first()
+    )
+    result_comments = (
+        db.session.query(Comment, User.username)
+        .join(User)
+        .filter(Comment.trail_id == result_trail.id)
+        .all()
     )
     result_ratings = (
-            db.session.query(Trail.trailname, func.avg(Comment.rate_good),
-                             func.avg(Comment.rate_hard))
-            .join(Comment, Trail.comments)
-            .group_by(Trail.trailname)
-            .filter(Trail.trailname == name)
-            .first()
+        db.session.query(Trail.trailname, func.avg(Comment.rate_good),
+                         func.avg(Comment.rate_hard))
+        .join(Comment, Trail.comments)
+        .group_by(Trail.trailname)
+        .filter(Trail.trailname == name)
+        .first()
     )
+    if not result_ratings:
+        result_ratings = (name, "Unrated", "Unrated")
 
-    print(result_trail)
-    print(result_trail.comments)
     if not result_trail:
-        return apology('message', 400)
+        return apology('Trail Not Found', 400)
     else:
-        return render_template("trail.html", trail=result_trail)
+        return render_template("trail.html", trail=result_trail,
+                                             avgRating=result_ratings,
+                                             comments=result_comments)
 
 
 @app.route("/comment", methods=["GET", "POST"])

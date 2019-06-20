@@ -48,10 +48,9 @@ def mapmaker(trailParam):
         tooltip = 'Click for More Info'
         mc = MarkerCluster()
     else:
-        print(trailParamCoords)
         m = folium.Map(
             location=list(reversed(trailParamCoords)),
-            zoom_start=14,
+            zoom_start=15,
             attr='© <a href="www.openstreetmap.org">OpenStreetMap contributors<a>, <a href="https://gis.utah.gov/">Utah AGRC</a>',
             width='100%',
             height='100%'

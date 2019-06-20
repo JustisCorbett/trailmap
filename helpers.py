@@ -50,7 +50,7 @@ def mapmaker(trailParam):
     else:
         m = folium.Map(
             location=list(reversed(trailParamCoords)),
-            zoom_start=15,
+            zoom_start=17,
             attr='© <a href="www.openstreetmap.org">OpenStreetMap contributors<a>, <a href="https://gis.utah.gov/">Utah AGRC</a>',
             width='100%',
             height='100%'
@@ -93,11 +93,11 @@ def popuper(name, trails):
     quote = quote_plus(name)
     safe_name = name.replace("`", "")
     if name in trails:
-        html_name = f"<div><h3><a href=\"/trail?name={quote}\">{safe_name}</a></h3></div>"
+        html_name = f"<div><h3><a href=\"/trail?name={quote}\" target=\"_top\">{safe_name}</a></h3></div>"
         html_rate = f"<div><p style=\"white-space: nowrap\">Average User Rating: {trails[name][0]}/5</p></div>"
         html_diff = f"<div><p style=\"white-space: nowrap\">Average User Difficulty: {trails[name][1]}/5</p></div>"
     else:
-        html_name = f"<div><h3><a href=\"/trail?name={quote}\">{safe_name}</a></h3></div>"
+        html_name = f"<div><h3><a href=\"/trail?name={quote}\" target=\"_top\">{safe_name}</a></h3></div>"
         html_rate = f"<div><p style=\"white-space: nowrap\">Average User Rating: unrated/5</p></div>"
         html_diff = f"<div><p style=\"white-space: nowrap\">Average User Difficulty: unrated/5</p></div>"
 

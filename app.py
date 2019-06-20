@@ -23,7 +23,7 @@ def index():
     """render the default map"""
 
     # remove trail in session to make default map
-    session.pop("trail", None)
+    session["trail"] = None
     return render_template("index.html")
 
 
@@ -45,8 +45,8 @@ def showmap():
 def register():
     """Register user"""
 
-     # Forget any user_id
-    session.pop("user_id", None)
+    # Forget any user_id
+    session["user_id"] = None
 
     # Ensure user reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
@@ -118,7 +118,7 @@ def login():
     """Log user in"""
 
     # Forget any user_id
-    session.pop("user_id", None)
+    session["user_id"] = None
 
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
@@ -200,7 +200,7 @@ def trailposts():
         db.session.query(Comment, User.username)
         .join(User)
         .filter(Comment.trail_id == result_trail.id)
-        .all()
+        .order_by(Comment.time.desc())
     )
     result_ratings = (
         db.session.query(Trail.trailname, func.avg(Comment.rate_good),
@@ -212,7 +212,8 @@ def trailposts():
     )
     if not result_ratings:
         result_ratings = (name, "Unrated", "Unrated")
-
+    for comment in result_comments:
+        print((comment.Comment.post))
     if not result_trail:
         return apology('Trail Not Found', 400)
     else:

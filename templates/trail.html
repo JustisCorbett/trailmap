@@ -14,22 +14,22 @@
             <div class="result-head">
                 <span class="result-header-text">{{ trail.trailname }}</span>
             </div>
-            <div class="container-fluid p-0 h-30 mx-auto">
-                <div class="spinner">
-                    <div>
-                        <i class="fas fa-spinner fa-pulse"></i>
-                    </div>
+            <div class="container-fluid p-0 mx-auto">
+                <div class="spinner mx-auto" id="spinner">
+                    <i class="fas fa-spinner fa-pulse"></i>
                 </div>
-                <iframe frameborder='0' name=iframe noresize='noresize' style='position: absolute; background: transparent; width: 92.5%; height:60%; padding: 0%' src="/map" frameborder="0" onload="document.getElementById('spinner').style.display='none';"></iframe>
+                <iframe frameborder='0' name=iframe noresize='noresize' style='display: block; background: transparent; width: 100%; height:60%; padding: 0%' src="/map" frameborder="0" onload="document.getElementById('spinner').style.display='none';"></iframe>
             </div>
             <div class="result-content px-2">
                 <table class="table table-sm">
                     <tbody>
-                        {% for comment in trail.comments%}
+                        {% for comment in comments%}
                             <tr>
-                                <td>{{ post["user"] }}</td>
-                                <td>{{ post["rating"] }}</td>
-                                <td>{{ post["post"] }}</td>
+                                <td>{{ comment.username }}</td>
+                                <td>{{ comment.Comment.rate_hard }}</td>
+                                <td>{{ comment.Comment.rate_good }}</td>
+                                <td>{{ comment.Comment.post }}</td>
+                                <td>{{ comment.Comment.time }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

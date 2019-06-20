@@ -30,10 +30,8 @@ nav.navbar>div>ul{
     font-size: 7em;
     color: #6A80A3;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
+    top: 26%;
+    left:46%;
 }
 
 .hiker{

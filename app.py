@@ -190,6 +190,7 @@ def trailposts():
     # save trail in session for use in map generation
     name = request.args.get("name")
     session["trail"] = name
+    avg_ratings = {}
 
     result_trail = (
         db.session.query(Trail)
@@ -210,15 +211,18 @@ def trailposts():
         .filter(Trail.trailname == name)
         .first()
     )
-    if not result_ratings:
-        result_ratings = (name, "Unrated", "Unrated")
-    for comment in result_comments:
-        print((comment.Comment.post))
+    if result_ratings:
+        avg_ratings["rate_good"] = round(result_ratings[1])
+        avg_ratings["rate_hard"] = round(result_ratings[2])
+    elif not result_ratings:
+        avg_ratings["rate_good"] = "Unrated"
+        avg_ratings["rate_hard"] = "Unrated"
+    print(result_ratings[2])
     if not result_trail:
         return apology('Trail Not Found', 400)
     else:
         return render_template("trail.html", trail=result_trail,
-                                             avgRating=result_ratings,
+                                             avg_ratings=avg_ratings,
                                              comments=result_comments)
 
 

@@ -41,9 +41,15 @@ nav.navbar>div>ul{
 .use-icon{
     font-size: 1.5em;
 }
+
 .fa-comment{
     font-size: 3em;
 }
+
+.fa-star{
+    color: goldenrod;
+}
+
 .fa-question{
     font-size: 1.4em;
 }
@@ -69,9 +75,14 @@ nav.navbar>div>ul{
 }
 
 .result-header-text{
-    font-size: 1.5em;
+    font-size: 1.75em;
     color: #FAFBFB;
     
+}
+
+.result-header-rating{
+    font-size: 1em;
+    color: #FAFBFB;
 }
 
 .btn-search{

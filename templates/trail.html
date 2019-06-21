@@ -6,13 +6,29 @@
 
 {% block main %}
 <div class="container-fluid h-100">
-    <div class="mx-auto col-lg-6 col-sm-10 p-3 text-center">
+    <div class="mx-auto col-lg-6 col-sm-10 p-2 text-center">
         <p class="page-title">Trail Overview</p>
     </div>
     <div class="row mx-md-n5 h-100">
         <div class="col px-md-5 ">
             <div class="result-head">
                 <span class="result-header-text">{{ trail.trailname }}</span>
+                <div>
+                    <span class="result-header-rating">Average Rating:</span>
+                    {% for i in range(avg_ratings["rate_good"]) %}
+                        <i class="fas fa-star"></i>
+                    {% endfor %}
+                    {% for i in range(5 - avg_ratings["rate_good"]) %}
+                        <i class="far fa-star"></i>
+                    {% endfor %}
+                    <span class="result-header-rating">Average Difficulty:</span>
+                    {% for i in range(avg_ratings["rate_hard"]) %}
+                        <i class="fas fa-star"></i>
+                    {% endfor %}
+                    {% for i in range(5 - avg_ratings["rate_hard"]) %}
+                        <i class="far fa-star"></i>
+                    {% endfor %}
+                </div>
             </div>
             <div class="container-fluid p-0 mx-auto">
                 <div class="spinner mx-auto" id="spinner">

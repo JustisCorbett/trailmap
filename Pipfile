@@ -14,6 +14,7 @@ flask-login = "*"
 flask-wtf = "*"
 psycopg2 = "*"
 flask-sqlalchemy = "*"
+flask-moment = "*"
 
 [requires]
 python_version = "3.7"

@@ -6,28 +6,69 @@
 
 {% block main %}
 <div class="container-fluid h-100">
-    <div class="mx-auto col-lg-6 col-sm-10 p-2 text-center">
-        <p class="page-title">Trail Overview</p>
-    </div>
-    <div class="row mx-md-n5 h-100">
+    
+    <div class="row mx-md-n5 h-100 mt-2">
         <div class="col px-md-5 ">
-            <div class="result-head">
-                <span class="result-header-text">{{ trail.trailname }}</span>
+            <div class="result-head py-2 px-2">
+                <div class="border-bottom">
+                    <span class="result-header-text">{{ trail.trailname }}</span>
+                </div>
                 <div>
-                    <span class="result-header-rating">Average Rating:</span>
-                    {% for i in range(avg_ratings["rate_good"]) %}
-                        <i class="fas fa-star"></i>
-                    {% endfor %}
-                    {% for i in range(5 - avg_ratings["rate_good"]) %}
-                        <i class="far fa-star"></i>
-                    {% endfor %}
-                    <span class="result-header-rating">Average Difficulty:</span>
-                    {% for i in range(avg_ratings["rate_hard"]) %}
-                        <i class="fas fa-star"></i>
-                    {% endfor %}
-                    {% for i in range(5 - avg_ratings["rate_hard"]) %}
-                        <i class="far fa-star"></i>
-                    {% endfor %}
+                    
+                    {% if trail.use == "OVPrimaryUseHIKE" %}
+                        <div class="mt-2">
+                            <span class="result-header-icon">
+                                <i class="fas fa-hiking"></i>
+                            </span>
+                        </div>
+                        <span class="result-header-rating">Primary Use:</span>
+                        <span class="result-header-rating">Hiking</span>
+                        
+                    {% elif trail.use == "OVPrimaryUseMTB" %}
+                        <div class="mt-2">
+                            <span class="result-header-icon">
+                                <i class="fas fa-bicycle"></i>
+                            </span>
+                        </div>
+                        <span class="result-header-rating">Primary Use:</span>
+                        <span class="result-header-rating">Biking</span>
+                    {% else %}
+                        <div class="mt-2">
+                            <span class="result-header-icon">
+                                <i class="fas fa-arrows-alt"></i>
+                            </span>
+                        </div>
+                        <span class="result-header-rating">Primary Use:</span>
+                        <span class="result-header-rating">Multi-Use</span>
+                    {% endif %}
+                </div>
+                <div class="row justify-content-center">
+                    <div class="rating-container col-md-3">
+                        <span class="result-header-rating">Average Rating:</span>
+                        {% if avg_ratings["rate_good"] is number %}
+                            {% for i in range(avg_ratings["rate_good"]) %}
+                                <i class="fas fa-star"></i>
+                            {% endfor %}
+                            {% for i in range(5 - avg_ratings["rate_good"]) %}
+                                <i class="far fa-star"></i>
+                            {% endfor %}
+                        {% else %}
+                            <span class="result-header-rating">Unrated</span>
+                        {% endif %}
+                    </div>
+                    <div class="rating-container col-md-3">
+                        <span class="result-header-rating">Average Difficulty:</span>
+                        {% if avg_ratings["rate_good"] is number %}
+                            {% for i in range(avg_ratings["rate_hard"]) %}
+                                <i class="fas fa-star"></i>
+                            {% endfor %}
+                            {% for i in range(5 - avg_ratings["rate_hard"]) %}
+                                <i class="far fa-star"></i>
+                            {% endfor %}
+                        {% else %}
+                            <span class="result-header-rating">Unrated</span>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             <div class="container-fluid p-0 mx-auto">
@@ -45,7 +86,7 @@
                                 <td>{{ comment.Comment.rate_hard }}</td>
                                 <td>{{ comment.Comment.rate_good }}</td>
                                 <td>{{ comment.Comment.post }}</td>
-                                <td>{{ comment.Comment.time }}</td>
+                                <td>{{ moment(comment.Comment.time).format('MMMM Do YYYY, h:mm:ss a') }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

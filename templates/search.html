@@ -15,7 +15,7 @@
                 <span class="result-header-text">Trails</span>
             </div>
             <div class="result-content px-2 fixed-header">
-                <table class="table table-sm">
+                <table class="table table-sm table-hover">
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
@@ -28,11 +28,20 @@
                                 <tr>
                                     <td><a href="/trail?name={{ trail.link }}">{{ trail.trailname }}</a></td>
                                     {% if trail.use == "OVPrimaryUseHIKE" %}
-                                        <td class="use-icon"><i class="fas fa-hiking"></i></td>
+                                        <td class="use-icon">
+                                            <i class="fas fa-hiking"></i>
+                                            <span class="use-text">Hiking</span>
+                                        </td>
                                     {% elif trail.use == "OVPrimaryUseMTB" %}
-                                        <td class="use-icon"><i class="fas fa-bicycle"></i></td>
+                                        <td class="use-icon">
+                                            <i class="fas fa-bicycle"></i>
+                                            <span class="use-text">Biking</span>
+                                        </td>
                                     {% else %}
-                                        <td class="use-icon"><i class="fas fa-arrows-alt"></i></td>
+                                        <td class="use-icon">
+                                            <i class="fas fa-arrows-alt"></i>
+                                            <span class="use-text">Multi-Use</span>
+                                        </td>
                                     {% endif %}
                                 </tr>
                             {% endfor %}

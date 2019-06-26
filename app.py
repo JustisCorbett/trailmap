@@ -4,6 +4,7 @@ from sqlalchemy import func
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 from urllib.parse import quote_plus
+from flask_moment import Moment
 import os
 
 
@@ -13,6 +14,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhos
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://jqewotptknoxrj:54ea7f064f3ea562961843cf894e446774889fece265324e8b4e6ab7e3278ab6@ec2-54-163-226-238.compute-1.amazonaws.com:5432/d3jtih4nl7s405'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+moment = Moment(app)
 
 from helpers import mapmaker, login_required, apology
 from models import User, Trail, Comment
@@ -217,7 +219,7 @@ def trailposts():
     elif not result_ratings:
         avg_ratings["rate_good"] = "Unrated"
         avg_ratings["rate_hard"] = "Unrated"
-    print(result_ratings[2])
+
     if not result_trail:
         return apology('Trail Not Found', 400)
     else:

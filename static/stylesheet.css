@@ -74,6 +74,16 @@ nav.navbar>div>ul{
     margin-top: 0px;
 }
 
+.result-mid{
+    background-color: #6A80A3;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    padding-top: 1%;
+    padding-bottom: .5%;
+    display: flex;
+    flex-direction: column;
+}
+
 .result-head{
     background-color: #6A80A3;
     border-radius: 10px 10px 0px 0px;
@@ -118,4 +128,103 @@ nav.navbar>div>ul{
 
 .fixed_header thead tr{
     display:block;
+}
+
+.rate-hard {
+    float: left;
+    height: 10px;
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
+
+.rate-hard:not(:checked) > input {
+    position:absolute; 
+    left:-999px;
+}
+
+.rate-hard:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:25px;
+    color:#ccc;
+}
+
+.rate-hard:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rate-hard > input:checked ~ label {
+    color: #ffc700;    
+}
+
+.rate-hard:not(:checked) > label:hover,
+.rate-hard:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+
+.rate-hard > input:checked + label:hover,
+.rate-hard > input:checked + label:hover ~ label,
+.rate-hard > input:checked ~ label:hover,
+.rate-hard > input:checked ~ label:hover ~ label,
+.rate-hard > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+.rate-hard label input {
+    display: none;
+}
+
+.rate-good {
+    float: left;
+    height: 10px;
+    padding: 0 10px;
+}
+
+.rate-good:not(:checked) > input {
+    position:absolute; 
+    left:-999px;
+}
+
+.rate-good:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:25px;
+    color:#ccc;
+}
+
+.rate-good:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rate-good > input:checked ~ label {
+    color: #ffc700;    
+}
+
+.rate-good:not(:checked) > label:hover,
+.rate-good:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+
+.rate-good > input:checked + label:hover,
+.rate-good > input:checked + label:hover ~ label,
+.rate-good > input:checked ~ label:hover,
+.rate-good > input:checked ~ label:hover ~ label,
+.rate-good > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+.rate-good label input {
+    display: none;
+}
+/* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */
+
+.comment-btn{
+    float: right;
+    margin-right: 5%;
 }

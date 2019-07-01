@@ -43,7 +43,7 @@
                     {% endif %}
                 </div>
                 <div class="row justify-content-center">
-                    <div class="rating-container col-md-3">
+                    <div class="rating-container col-lg-3">
                         <span class="result-header-rating">Average Rating:</span>
                         {% if avg_ratings["rate_good"] is number %}
                             {% for i in range(avg_ratings["rate_good"]) %}
@@ -56,7 +56,7 @@
                             <span class="result-header-rating">Unrated</span>
                         {% endif %}
                     </div>
-                    <div class="rating-container col-md-3">
+                    <div class="rating-container col-lg-3">
                         <span class="result-header-rating">Average Difficulty:</span>
                         {% if avg_ratings["rate_good"] is number %}
                             {% for i in range(avg_ratings["rate_hard"]) %}
@@ -76,6 +76,44 @@
                     <i class="fas fa-spinner fa-pulse"></i>
                 </div>
                 <iframe frameborder='0' name=iframe noresize='noresize' style='display: block; background: transparent; width: 100%; height:60%; padding: 0%' src="/map" frameborder="0" onload="document.getElementById('spinner').style.display='none';"></iframe>
+            </div>
+            <div class="container-fluid result-mid result-header-rating">
+                <form action="/comment" method="post">
+                    <div class="form-group">
+                        <label for="comment-form">Comment and Rate Trail</label>
+                        <div class="mb-2">
+                            <textarea class="form-control" id="comment-form" rows="2"></textarea>
+                        </div>
+                        <button class="btn btn-success comment-btn" type="submit">Comment</button>
+                        <div class="rate-hard">
+                            <span class="py-1">Rate Difficulty:</span>
+                            <input type="radio" id="hard-star5" name="rate-hard" value="5" />
+                            <label for="hard-star5" title="Very Difficult">5 stars</label>
+                            <input type="radio" id="hard-star4" name="rate-hard" value="4" />
+                            <label for="hard-star4" title="Pretty Difficult">4 stars</label>
+                            <input type="radio" id="hard-star3" name="rate-hard" value="3" />
+                            <label for="hard-star3" title="Average">3 stars</label>
+                            <input type="radio" id="hard-star2" name="rate-hard" value="2" />
+                            <label for="hard-star2" title="Pretty Easy">2 stars</label>
+                            <input type="radio" id="hard-star1" name="rate-hard" value="1" />
+                            <label for="hard-star1" title="Very Easy">1 star</label>
+                        </div>
+                        <div class="rate-good">
+                            <span class="py-1">Rate Enjoyment:</span>
+                            <input type="radio" id="good-star5" name="rate-good" value="5" />
+                            <label for="good-star5" title="Very Good">5 stars</label>
+                            <input type="radio" id="good-star4" name="rate-good" value="4" />
+                            <label for="good-star4" title="Pretty Good">4 stars</label>
+                            <input type="radio" id="good-star3" name="rate-good" value="3" />
+                            <label for="good-star3" title="Average">3 stars</label>
+                            <input type="radio" id="good-star2" name="rate-good" value="2" />
+                            <label for="good-star2" title="Pretty Bad">2 stars</label>
+                            <input type="radio" id="good-star1" name="rate-good" value="1" />
+                            <label for="good-star1" title="Very Bad">1 star</label>
+                        </div>
+                        
+                    </div>
+                </form>
             </div>
             <div class="result-content px-2">
                 <table class="table table-sm">

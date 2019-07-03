@@ -127,16 +127,16 @@ def login():
 
         # Ensure username and password was submitted
         if not request.form.get("username"):
-            return apology("must provide username", 403)
+            return apology("must provide username", 400)
         elif not request.form.get("password"):
-            return apology("must provide password", 403)
+            return apology("must provide password", 400)
 
         # Query database for username
         result = User.query.filter_by(username=request.form.get("username")).first()
 
         # Ensure username exists and password is correct
         if not result or not check_password_hash(result.pw_hash, request.form.get("password")):
-            return apology("invalid username and/or password", 403)
+            return apology("invalid username and/or password", 400)
 
         # Remember which user has logged in
         session["user_id"] = result.id
@@ -154,10 +154,10 @@ def logout():
     """Log user out"""
 
     # Forget any user_id
-    session.clear()
+    session["user_id"] = None
 
     # Redirect user to login form
-    return redirect("/")
+    return redirect("/login")
 
 
 @app.route("/changepw", methods=["GET", "POST"])
@@ -221,17 +221,46 @@ def trailposts():
         avg_ratings["rate_hard"] = "Unrated"
 
     if not result_trail:
-        return apology('Trail Not Found', 400)
+        return apology('Trail Not Found', 404)
     else:
         return render_template("trail.html", trail=result_trail,
                                              avg_ratings=avg_ratings,
                                              comments=result_comments)
 
 
-@app.route("/comment", methods=["GET", "POST"])
+@app.route("/comment", methods=["POST"])
 @login_required
 def comment():
     """Let user comment and rate a trail"""
+
+    if not request.args.get("comment"):
+        return apology('You must add a comment to rate trail.', 400)
+
+    user_id = session["user_id"]
+    trail_name = session["trail"]
+    comment = request.args.get("comment")
+    rate_good = request.args.get("rate_good")
+    rate_hard = request.args.get("rate_hard")
+
+    # query db for trail to get id
+    result_trail = db.session.query(Trail.id).filter(Trail.trailname == trail_name).first()
+
+    if not result_trail:
+        return apology('Trail Not Found', 404)
+    else:
+        trail_id = result_trail[0]
+
+    # create Comment and add to db
+    post = Comment(user_id=user_id,
+                   trail_id=trail_id,
+                   rate_good=rate_good,
+                   rate_hard=rate_hard,
+                   post=comment)
+
+    db.session.add(post)
+    db.session.commit()
+
+    return render_template("success.html")
 
 
 @app.route("/user", methods=["GET"])

@@ -67,6 +67,11 @@ nav.navbar>div>ul{
     font-size: 1.5em;
 }
 
+.iframe-container{
+    height: 60%;
+    
+}
+
 .result-content{
     background-color: #6A80A3;
     border-radius: 0px 0px 10px 10px;

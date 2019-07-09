@@ -14,18 +14,36 @@
                     <span class="result-header-rating">{{ user.username }}</span>
                 </div>
             </div>
-            <div class="result-content px-2">
-                <table class="table table-sm">
-                    <tbody>
-                        {% for post in user["posts"]%}
-                            <tr>
-                                <td>{{ post["trail"] }}</td>
-                                <td>{{ post["rating"] }}</td>
-                                <td>{{ post["post"] }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <div class="result-content p-3">
+                {% for comment in comments%}
+                    <div class="result-comment p-2">
+                        <span class="comment-username"><a href="/user?name={{ user.username }}">{{ user.username }}</a></span>
+                        <span class="comment-time"> commented on {{ moment(comment.time).format('MMMM Do YYYY, h:mm:ss a') }}</span>
+                        <p class="p-2">{{ comment.post }}</p>
+                        <span class="comment-rating">Difficulty:</span>
+                        {% if comment.rate_hard is number %}
+                            {% for i in range(comment.rate_hard) %}
+                                <i class="fas fa-star"></i>
+                            {% endfor %}
+                            {% for i in range(5 - comment.rate_hard) %}
+                                <i class="far fa-star"></i>
+                            {% endfor %}
+                        {% else %}
+                            <span class="comment-rate-hard">Unrated</span>
+                        {% endif %}
+                        <span class="comment-rating">Enjoyment:</span>
+                        {% if comment.rate_good is number %}
+                            {% for i in range(comment.rate_good) %}
+                                <i class="fas fa-star"></i>
+                            {% endfor %}
+                            {% for i in range(5 - comment.rate_good) %}
+                                <i class="far fa-star"></i>
+                            {% endfor %}
+                        {% else %}
+                            <span class="comment-rating">Unrated</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>

@@ -233,14 +233,16 @@ def trailposts():
 def comment():
     """Let user comment and rate a trail"""
 
-    if not request.args.get("comment"):
+    # validate form
+    if not request.form.get("comment"):
         return apology('You must add a comment to rate trail.', 400)
 
+    # get variables for db insertion
     user_id = session["user_id"]
     trail_name = session["trail"]
-    comment = request.args.get("comment")
-    rate_good = request.args.get("rate_good")
-    rate_hard = request.args.get("rate_hard")
+    comment = request.form.get("comment")
+    rate_good = request.form.get("rate-good")
+    rate_hard = request.form.get("rate-hard")
 
     # query db for trail to get id
     result_trail = db.session.query(Trail.id).filter(Trail.trailname == trail_name).first()
@@ -250,7 +252,7 @@ def comment():
     else:
         trail_id = result_trail[0]
 
-    # create Comment and add to db
+    # create Comment and insert into db
     post = Comment(user_id=user_id,
                    trail_id=trail_id,
                    rate_good=rate_good,
@@ -260,7 +262,7 @@ def comment():
     db.session.add(post)
     db.session.commit()
 
-    return render_template("success.html")
+    return render_template("success.html", trail_name=trail_name)
 
 
 @app.route("/user", methods=["GET"])
@@ -278,9 +280,9 @@ def user():
     result_comments = (
         db.session.query(Comment)
         .filter(Comment.user_id == result_user.id)
-        .all()
+        .order_by(Comment.time.desc())
     )
-
+    print(result_comments)
     return render_template("user.html", comments=result_comments,
                            user=result_user)
 

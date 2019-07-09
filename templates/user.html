@@ -1,18 +1,18 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    User: {{ user["name"] }}
+    User: {{ user.username }}
 {% endblock %}
 
 {% block main %}
 <div class="container-fluid">
-    <div class="mx-auto col-lg-6 col-sm-10 p-3 text-center">
-        <p class="page-title">{{ user["name"] }}</p>
-    </div>
-    <div class="row mx-md-n5">
-        <div class="col px-md-5 ">
+    <div class="row mx-md-n5 mt-2">
+        <div class="col px-md-5">
             <div class="result-head">
-                <span class="result-header-text">User</span>
+                <span class="result-header-text">User History</span>
+                <div>
+                    <span class="result-header-rating">{{ user.username }}</span>
+                </div>
             </div>
             <div class="result-content px-2">
                 <table class="table table-sm">

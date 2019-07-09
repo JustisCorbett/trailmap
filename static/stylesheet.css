@@ -68,8 +68,16 @@ nav.navbar>div>ul{
 }
 
 .iframe-container{
-    height: 60%;
+    height: 420px;
     
+}
+
+.search-result-content{
+    background-color: #DDE3E8;
+    border-radius: 0px 0px 10px 10px;
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 2.5%;
 }
 
 .result-content{

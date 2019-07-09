@@ -224,8 +224,8 @@ def trailposts():
         return apology('Trail Not Found', 404)
     else:
         return render_template("trail.html", trail=result_trail,
-                                             avg_ratings=avg_ratings,
-                                             comments=result_comments)
+                               avg_ratings=avg_ratings,
+                               comments=result_comments)
 
 
 @app.route("/comment", methods=["POST"])
@@ -267,9 +267,27 @@ def comment():
 def user():
     """Show specified user's history of posts"""
 
+    name = request.args.get("name")
+
+    result_user = (
+        db.session.query(User)
+        .filter(User.username == name)
+        .first()
+    )
+
+    result_comments = (
+        db.session.query(Comment)
+        .filter(Comment.user_id == result_user.id)
+        .all()
+    )
+
+    return render_template("user.html", comments=result_comments,
+                           user=result_user)
+
 
 def errorhandler(e):
     """Handle error"""
+
     if not isinstance(e, HTTPException):
         e = InternalServerError()
     return apology(e.name, e.code)

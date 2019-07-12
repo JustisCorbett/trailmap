@@ -4,6 +4,12 @@ body{
     color: #111111
 }
 
+footer{
+    font-family: 'Roboto', sans-serif;
+    background-color: #FAFBFB;
+    color: #111111
+}
+
 nav.navbar {
     padding-top: 2.5px;
     padding-bottom: 2.5px;

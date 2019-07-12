@@ -10,8 +10,9 @@ import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/flasktrails'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://jqewotptknoxrj:54ea7f064f3ea562961843cf894e446774889fece265324e8b4e6ab7e3278ab6@ec2-54-163-226-238.compute-1.amazonaws.com:5432/d3jtih4nl7s405'
+DATABASE_URL = os.environ['DATABASE_URL']
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/flasktrails'
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 moment = Moment(app)
@@ -262,7 +263,11 @@ def comment():
     rate_hard = request.form.get("rate-hard")
 
     # query db for trail to get id
-    result_trail = db.session.query(Trail.id).filter(Trail.trailname == trail_name).first()
+    result_trail = (
+        db.session.query(Trail.id)
+        .filter(Trail.trailname == trail_name)
+        .first()
+    )
 
     if not result_trail:
         return apology('Trail Not Found', 404)
@@ -299,7 +304,7 @@ def user():
         .filter(Comment.user_id == result_user.id)
         .order_by(Comment.time.desc())
     )
-    print(result_comments)
+
     return render_template("user.html", comments=result_comments,
                            user=result_user)
 

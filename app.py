@@ -161,9 +161,26 @@ def logout():
 
 
 @app.route("/changepw", methods=["GET", "POST"])
-#@login_required
+@login_required
 def changepw():
     """Change user's password"""
+
+    if request.method == "POST":
+        user_id = session["user_id"]
+        old_pw = request.form.get("old-pw")
+        new_pw = request.form.get("new-pw")
+
+        update_user = User.query.filter(User.id == user_id).first()
+
+        if not check_password_hash(update_user.pw_hash, old_pw):
+            return apology("invalid old password", 400)
+        else:
+            update_user.pw_hash = generate_password_hash(new_pw)
+            db.session.commit()
+            return render_template("index.html")
+
+    else:
+        return render_template("changepw.html")
 
 
 @app.route("/search", methods=["GET"])

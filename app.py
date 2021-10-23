@@ -191,7 +191,7 @@ def trailsearch():
     # get query string from args, search db and pass query objects to template
     query = request.args.get("search")
     looking_for = f"%{query}%"
-
+    
     result_trails = Trail.query.filter(Trail.trailname.ilike(looking_for)).all()
     result_users = User.query.filter(User.username.ilike(looking_for)).all()
 

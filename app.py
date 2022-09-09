@@ -6,15 +6,22 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from urllib.parse import quote_plus
 from flask_moment import Moment
 import os
-
+from configparser import RawConfigParser
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
-DATABASE_URL = os.environ['DATABASE_URL']
-if DATABASE_URL.startswith("postgres://"):
-    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/flasktrails'
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+
+config = RawConfigParser()
+config.read('/web/settings.ini')
+
+username = "utrailsuser"
+password = config.get('pgpassword','password')
+database = "utrails"
+#DATABASE_URL = os.environ['DATABASE_URL']
+#if DATABASE_URL.startswith("postgres://"):
+#    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{username}:{password}@localhost:5432/{database}"
+#app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 moment = Moment(app)

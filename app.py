@@ -45,7 +45,10 @@ def showmap():
 
     # if there is a trail variable pass it to mapmaker
     if session["trail"] is not None:
-        trailParam = session["trail"]
+        try:
+            trailParam = session["trail"]
+        except:
+            trailParam = ""
     else:
         trailParam = ""
     mapmaker(trailParam)

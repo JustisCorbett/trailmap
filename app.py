@@ -44,12 +44,12 @@ def showmap():
     """return map file for use in iFrame"""
 
     # if there is a trail variable pass it to mapmaker
-    if session["trail"] is not None:
-        try:
+    try:
+        if session["trail"] is not None:
             trailParam = session["trail"]
-        except:
+        else:
             trailParam = ""
-    else:
+    except:
         trailParam = ""
     mapmaker(trailParam)
     map_path = os.path.join('templates', 'map.html')
